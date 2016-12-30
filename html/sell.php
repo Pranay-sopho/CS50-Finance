@@ -54,6 +54,12 @@
             
             if (count($result2) == 1)
             {
+                // store current date and time
+                $timestamp = CURRENT_TIMESTAMP;
+                
+                // insert all transaction details in history table
+                $result3 = CS50::query("INSERT INTO history (user_id, status, symbol, shares, price, timestamp) VALUES(?, SOLD, ?, ?, ?, ?)", $_SESSION["id"], $_POST["symbol"], $sharessold[0]["shares"], $value, $timestamp);
+                
                 // redirect to portfolio
                 redirect("/");
             }
