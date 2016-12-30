@@ -25,6 +25,12 @@
     // else if user reached page via POST (as by submitting a form via POST)
     else if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
+        // validate submission
+        if (empty($_POST["symbol"]))
+        {
+            apologize("You must select a Stock Symbol.");
+        }
+        
         // query portfolio for shares sold
         $sharessold = CS50::query("SELECT shares FROM portfolio WHERE user_id = ? AND symbol = ?", $_SESSION["id"], $_POST["symbol"]);
         
