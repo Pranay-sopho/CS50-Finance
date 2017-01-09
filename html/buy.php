@@ -46,7 +46,7 @@
             $cashi = CS50::query("SELECT cash FROM users WHERE id = ?", $_SESSION["id"]);
             
             // check if user can afford the stocks
-            if ($purchase > $cashi)
+            if ($purchase > $cashi[0]["cash"])
             {
                 apologize("You don't have enough cash for purchase.");
             }

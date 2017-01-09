@@ -49,8 +49,7 @@
             
             // update users balance
             $cashf = $cashi[0]["cash"] + $sharessold[0]["shares"] * $value;
-            $cashff = $cashf;
-            $result2 = CS50::query("UPDATE users SET cash = ? WHERE id = ?", $cashff, $_SESSION["id"]);
+            $result2 = CS50::query("UPDATE users SET cash = ? WHERE id = ?", $cashf, $_SESSION["id"]);
             
             if (count($result2) == 1)
             {
