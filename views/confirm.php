@@ -1,1 +1,1 @@
-<h1>Password has been changed successfully.</h1>
+<h3>Password has been changed successfully.</h3>
