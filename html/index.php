@@ -26,6 +26,6 @@
     $cash = CS50::query("SELECT cash FROM users WHERE id = ?", $_SESSION["id"]);
         
     // render portfolio
-    render("portfolio.php", ["title" => "Portfolio", "positions" => $positions, "cash" => $cash]);
+    render("portfolio.php", ["title" => "Portfolio", "positions" => $positions, "cash" => $cash[0]["cash"]]);
 
 ?>

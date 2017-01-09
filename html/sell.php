@@ -18,7 +18,7 @@
             ];
         }
         
-        // else render form
+        // render form
         render("sell_form.php", ["title" => "Sell", "symbols" => $symbols]);
     }
 
@@ -49,16 +49,16 @@
             
             // update users balance
             $cashf = $cashi[0]["cash"] + $sharessold[0]["shares"] * $value;
-            $cashff = number_format($cashf, 4);
+            $cashff = $cashf;
             $result2 = CS50::query("UPDATE users SET cash = ? WHERE id = ?", $cashff, $_SESSION["id"]);
             
             if (count($result2) == 1)
             {
                 // store current date and time
-                $timestamp = CURRENT_TIMESTAMP;
+                $timestamp = date('Y-m-d, H:i:s');
                 
                 // insert all transaction details in history table
-                $result3 = CS50::query("INSERT INTO history (user_id, status, symbol, shares, price, timestamp) VALUES(?, SOLD, ?, ?, ?, ?)", $_SESSION["id"], $_POST["symbol"], $sharessold[0]["shares"], $value, $timestamp);
+                $result3 = CS50::query("INSERT INTO history (user_id, status, symbol, shares, price, timestamp) VALUES(?, ?, ?, ?, ?, ?)", $_SESSION["id"], "SELL", $stock["symbol"], $sharessold[0]["shares"], $value, $timestamp);
                 
                 // redirect to portfolio
                 redirect("/");

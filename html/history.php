@@ -20,6 +20,6 @@
     }
         
     // render portfolio
-    render("history.php", ["title" => "History", "positions" => $positions);
+    render("history.php", ["title" => "History", "positions" => $positions]);
 
 ?>

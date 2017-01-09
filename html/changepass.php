@@ -37,7 +37,7 @@
             $row = $rows[0];
 
             // compare hash of user's input against hash that's in database
-            if (password_verify($_POST["password"], $row["hash"]))
+            if (password_verify($_POST["old_password"], $row["hash"]))
             {
                 // update new password
                 $result = CS50::query("UPDATE users SET hash = ? WHERE id = ?", password_hash($_POST["new_password"], PASSWORD_DEFAULT), $_SESSION["id"]);

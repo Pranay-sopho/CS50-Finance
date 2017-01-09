@@ -40,7 +40,7 @@
         {
             // calculate total purchase value
             $value = number_format($stock["price"], 4);
-            $purchase = number_format($value * $_POST["shares"], 4);
+            $purchase = $value * $_POST["shares"];
             
             // query users database for cash
             $cashi = CS50::query("SELECT cash FROM users WHERE id = ?", $_SESSION["id"]);
@@ -53,21 +53,21 @@
             else
             {
                 // update portfolio
-                $result = CS50::query("INSERT INTO portfolio (user_id, symbol, shares) VALUES(?, ?, ?) ON DUPLICATE KEY UPDATE shares = shares + VALUES(?)", $_SESSION["id"], $stock["symbol"], $_POST["shares"], $_POST["shares"]);
+                $result = CS50::query("INSERT INTO portfolio (user_id, symbol, shares) VALUES(?, ?, ?) ON DUPLICATE KEY UPDATE shares = shares + ?", $_SESSION["id"], $stock["symbol"], $_POST["shares"], $_POST["shares"]);
                 
                 // update users cash
                 if (count($result) == 1)
                 {
-                    $cashf = number_format($cashi[0]["cash"] - $purchase, 4);
+                    $cashf = $cashi[0]["cash"] - $purchase;
                     $result2 = CS50::query("UPDATE users SET cash = ? WHERE id = ?", $cashf, $_SESSION["id"]);
                     
                     if (count($result2) == 1)
                     {
                         // store current date and time
-                        $timestamp = CURRENT_TIMESTAMP;
+                        $timestamp = date('Y-m-d, H:i:s');
                         
                         // insert all transaction details in history table
-                        $result3 = CS50::query("INSERT INTO history (user_id, status, symbol, shares, price, timestamp) VALUES(?, BOUGHT, ?, ?, ?, ?)", $_SESSION["id"], $_POST["symbol"], $_POST["shares"], $value, $timestamp);
+                        $result3 = CS50::query("INSERT INTO history (user_id, status, symbol, shares, price, timestamp) VALUES(?, ?, ?, ?, ?, ?)", $_SESSION["id"], "BUY", $stock["symbol"], $_POST["shares"], $value, $timestamp);
                         
                         // redirect to portfolio
                         redirect("/");
