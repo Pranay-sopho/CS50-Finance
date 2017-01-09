@@ -1,7 +1,7 @@
 <form action="sell.php" method="post">
     <fieldset>
         <div class="form-group">
-            <select autocomplete="off" autofocus class="form-control" name="symbol" placeholder="Symbol">
+            <select autocomplete="off" autofocus class="form-control" name="symbol">
                 <option value="" >Symbol</option>
                 <?php foreach ($symbols as $symbol): ?>
                 <option value="<?= $symbol["symbol"]?>"><?= $symbol["symbol"] ?></option>
