@@ -9,6 +9,12 @@
         // query portfolio database for user
         $rows = CS50::query("SELECT symbol FROM portfolio WHERE user_id = ?", $_SESSION["id"]);
         
+        // if user has no shares in portfolio
+        if (count($rows) == 0)
+        {
+            apologize("Nothing to sell.");
+        }
+        
         // store symbols of shares owned by a user in symbols 
         $symbols = [];
         foreach ($rows as $row)

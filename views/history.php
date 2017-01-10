@@ -4,7 +4,7 @@
         <th>Symbol</th>
         <th>Shares</th>
         <th>Price</th>
-        <th>Timestamp</th>
+        <th>Date/Time</th>
     </tr>
     <?php foreach ($positions as $position): ?>
     
